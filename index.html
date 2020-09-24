@@ -8,8 +8,9 @@
   <link href="style.css" rel="stylesheet">
   </head>
 <body>
+<div class= "container">
   <div class="calculator-grid">
-    <div class="output">
+    <div class="output" id="output-calc">
       <div data-previous-operand class="previous-operand" id="history-value"></div>
       <div data-current-operand class="current-operand" id="output-value"></div>
     </div>
@@ -31,6 +32,18 @@
     <button data-number class="span-two number" id="0">0</button>
     <button data-equals class="span-two operator" id="=">=</button>
   </div>
+
+  <div class="history">
+    <br>
+    <h1 class="title-history">History</h1>
+    <div id="list">
+        <ul></ul>
+    </div>
+    <button class="btn-clear" id="clear-history">Clear History</button>
+</div>
+<div>
+</div>
+</div>
   <script src="script.js"></script>
 </body>
 </html>
