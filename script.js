@@ -1,15 +1,20 @@
+let local = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
+localStorage.setItem('history', JSON.stringify(local));
+const data = JSON.parse(localStorage.getItem('history'));
+const ul = document.querySelector('ul');
+
+const liMaker = (operation) => {
+	const li = document.createElement('li');
+	li.textContent = operation;
+	ul.appendChild(li);
+  }
 document.addEventListener('DOMContentLoaded', function (e) {
 	e.preventDefault();
-	var history = GetLocalStorage();
-    history.forEach(element => {
-		
-		var container = document.getElementById('list');
-		var list = document.createElement('li');
-		
-		list.textContent = element;
-		container.appendChild(list);
+		data.forEach(local => {
+		liMaker(local);
 	  });
 })
+
 function getHistory(){
 	return document.getElementById("history-value").innerText;
 }
@@ -69,10 +74,11 @@ for(var i =0;i<operator.length;i++){
                 historyoutput=historyoutput+output;
                 if(this.id=="="){
 					var result=eval(historyoutput);
+					if (result == historyoutput){ return;}
 					printOutput(result);
                     printHistory("");
 					operation = '' + historyoutput + ' = ' + result;
-					 AddLocalStorage(operation);
+					AddLocalStorage(operation);
                      }
 				else{
 					historyoutput=historyoutput+this.id;
@@ -86,7 +92,6 @@ for(var i =0;i<operator.length;i++){
 }
 
 var number = document.getElementsByClassName("number");
-
 for(var i =0;i<number.length;i++){
 	number[i].addEventListener('click',function(){
 		var output=reverseNumberFormat(getOutput());
@@ -101,29 +106,16 @@ var btn = document.getElementById('clear-history');
 btn.addEventListener('click', clearLocal);
 
 function clearLocal() {
-	
         localStorage.clear();
 		location.reload();
 }
-function AddLocalStorage(value) {
-	const ul = document.querySelector('ul');	
-	var local = GetLocalStorage();
-	if (local.length > 4)
-	{ 
-		return;
+
+function AddLocalStorage() {
+	if (local.length > 3 ){
+		local.pop( );
 	}
-	local.push(value);
+	local.unshift(operation);
 	localStorage.setItem('history', JSON.stringify(local)); 
-	var li = document.createElement('li');
-						li.textContent = value;
-					    ul.appendChild(li);
+	liMaker(local);
 }
-function GetLocalStorage() {
-    var data;
-    if (localStorage.getItem('history') == null || localStorage.getItem('history') == undefined) {
-        data = [];
-    } else {
-		data = JSON.parse(localStorage.getItem('history'));
-	}
-    return data;
-}
+
