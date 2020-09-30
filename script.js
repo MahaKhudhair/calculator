@@ -1,19 +1,44 @@
-let local = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
-localStorage.setItem('history', JSON.stringify(local));
-const data = JSON.parse(localStorage.getItem('history'));
-const ul = document.querySelector('ul');
-
-const liMaker = (operation) => {
-	const li = document.createElement('li');
-	li.textContent = operation;
-	ul.appendChild(li);
-  }
 document.addEventListener('DOMContentLoaded', function (e) {
-	e.preventDefault();
-		data.forEach(local => {
-		liMaker(local);
-	  });
+    e.preventDefault();
+    var data = GetLocalStorage();
+    data.forEach(element => {
+        var container = document.getElementById('list');
+        var list = document.createElement('li');
+        list.textContent = element;
+       container.appendChild(list);
+   });
 })
+
+function AddLocalStorage(result, historyoutput) {
+	var op = "<>" + ' ' + historyoutput + ' = ' + result ;
+
+	var data = GetLocalStorage();
+	   
+	if (data.length > 2){
+		data.pop( );
+	}
+		
+	   data.unshift(op);
+
+ 
+	localStorage.setItem('history', JSON.stringify(data));
+
+	document.getElementById('list').innerHTML  = JSON.parse(localStorage.getItem('history'));
+	
+		}
+
+
+function GetLocalStorage() {
+    var data ;
+    if (localStorage.getItem('history') == null || localStorage.getItem('history') == undefined) {
+        data = [];
+    } else {
+		data = JSON.parse(localStorage.getItem('history'));
+
+    }
+    return data;
+}
+
 
 function getHistory(){
 	return document.getElementById("history-value").innerText;
@@ -110,12 +135,4 @@ function clearLocal() {
 		location.reload();
 }
 
-function AddLocalStorage() {
-	if (local.length > 3 ){
-		local.pop( );
-	}
-	local.unshift(operation);
-	localStorage.setItem('history', JSON.stringify(local)); 
-	liMaker(local);
-}
 
