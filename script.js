@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 })
 
 function AddLocalStorage(result, historyoutput) {
-	var op = "<>" + ' ' + historyoutput + ' = ' + result ;
+	var op = ' ' + historyoutput + ' = ' + result ;
 
 	var data = GetLocalStorage();
 	   
