@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function (e) {
     e.preventDefault();
-    var data = GetLocalStorage();
-    data.forEach(element => {
+    var history = GetLocalStorage();
+    history.forEach(element => {
         var container = document.getElementById('list');
         var list = document.createElement('li');
         list.textContent = element;
@@ -20,24 +20,33 @@ function AddLocalStorage(result, historyoutput) {
 		
 	   data.unshift(op);
 
- 
 	localStorage.setItem('history', JSON.stringify(data));
 
-	document.getElementById('list').innerHTML  = JSON.parse(localStorage.getItem('history'));
+	for ( let i=0 ; i <= localStorage.length ; i++) {
+		document.getElementById('myList').innerHTML  = JSON.parse(localStorage.getItem('history'));
+	    var myList = document.getElementById('myList');
 	
+		data.forEach(item => {
+			var li = document.createElement('li');
+	 		li.textContent = item;
+	 	    myList.appendChild(li);
+	   });
+}
+
 		}
-
-
 function GetLocalStorage() {
     var data ;
     if (localStorage.getItem('history') == null || localStorage.getItem('history') == undefined) {
         data = [];
     } else {
+		
 		data = JSON.parse(localStorage.getItem('history'));
-
+		
+		
     }
     return data;
 }
+
 
 
 function getHistory(){
@@ -101,10 +110,10 @@ for(var i =0;i<operator.length;i++){
 					var result=eval(historyoutput);
 					if (result == historyoutput){ return;}
 					printOutput(result);
-                    printHistory("");
-					operation = '' + historyoutput + ' = ' + result;
-					AddLocalStorage(operation);
-                     }
+					printHistory("");
+					AddLocalStorage(result, historyoutput);
+	
+					 }
 				else{
 					historyoutput=historyoutput+this.id;
 					printHistory(historyoutput);
@@ -134,5 +143,4 @@ function clearLocal() {
         localStorage.clear();
 		location.reload();
 }
-
 
