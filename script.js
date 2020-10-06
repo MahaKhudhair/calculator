@@ -1,54 +1,36 @@
 document.addEventListener('DOMContentLoaded', function (e) {
-    e.preventDefault();
-    var history = GetLocalStorage();
-    history.forEach(element => {
-        var container = document.getElementById('list');
+	e.preventDefault();
+	
+    var history  = GetLocalStorage();
+    history.forEach(item => {
+		document.getElementById("myList").innerHTML="";
+        var data = document.getElementById('list');
         var list = document.createElement('li');
-        list.textContent = element;
-       container.appendChild(list);
+        list.textContent = item;
+       data.appendChild(list);
    });
 })
 
 function AddLocalStorage(result, historyoutput) {
 	var op = ' ' + historyoutput + ' = ' + result ;
-
 	var data = GetLocalStorage();
-	   
 	if (data.length > 2){
 		data.pop( );
 	}
-		
-	   data.unshift(op);
-
+	data.unshift(op);
 	localStorage.setItem('history', JSON.stringify(data));
-
-	for ( let i=0 ; i <= localStorage.length ; i++) {
-		document.getElementById('myList').innerHTML  = JSON.parse(localStorage.getItem('history'));
-	    var myList = document.getElementById('myList');
-	
-		data.forEach(item => {
-			var li = document.createElement('li');
-	 		li.textContent = item;
-	 	    myList.appendChild(li);
-	   });
-}
-
-		}
+	 GetLocalStorage();
+	}
 function GetLocalStorage() {
-    var data ;
+	var data ; 
     if (localStorage.getItem('history') == null || localStorage.getItem('history') == undefined) {
         data = [];
     } else {
-		
 		data = JSON.parse(localStorage.getItem('history'));
-		
-		
-    }
-    return data;
+		document.getElementById("myList").innerHTML =data;
+	}
+   return data;
 }
-
-
-
 function getHistory(){
 	return document.getElementById("history-value").innerText;
 }
