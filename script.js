@@ -1,36 +1,35 @@
+let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+localStorage.setItem('items', JSON.stringify(itemsArray));
+const data = JSON.parse(localStorage.getItem('items'));
+
 document.addEventListener('DOMContentLoaded', function (e) {
 	e.preventDefault();
 	
-    var history  = GetLocalStorage();
-    history.forEach(item => {
-		document.getElementById("myList").innerHTML="";
-        var data = document.getElementById('list');
-        var list = document.createElement('li');
-        list.textContent = item;
-       data.appendChild(list);
+   data.forEach(textnode => {
+     	 var data = document.getElementById('myList');
+		 var node = document.createElement('li');
+         node.textContent = textnode;
+		 data.appendChild(node);
+		
    });
 })
-
 function AddLocalStorage(result, historyoutput) {
 	var op = ' ' + historyoutput + ' = ' + result ;
-	var data = GetLocalStorage();
-	if (data.length > 2){
-		data.pop( );
+	if (itemsArray.length > 5){
+		itemsArray.pop( );
 	}
-	data.unshift(op);
-	localStorage.setItem('history', JSON.stringify(data));
-	 GetLocalStorage();
+	itemsArray.unshift(op);
+	var c = document.getElementById("myList").childElementCount;
+    var data = document.getElementById('myList');
+	var node = document.createElement('LI');
+	var textnode = document.createTextNode(op);
+	node.prepend(textnode);
+	data.prepend(node);
+	if (c > 5){
+		data.removeChild(data.childNodes[6]);
 	}
-function GetLocalStorage() {
-	var data ; 
-    if (localStorage.getItem('history') == null || localStorage.getItem('history') == undefined) {
-        data = [];
-    } else {
-		data = JSON.parse(localStorage.getItem('history'));
-		document.getElementById("myList").innerHTML =data;
+	localStorage.setItem('items', JSON.stringify(itemsArray));
 	}
-   return data;
-}
 function getHistory(){
 	return document.getElementById("history-value").innerText;
 }
