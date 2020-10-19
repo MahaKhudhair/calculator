@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 })
 function AddLocalStorage(result, historyoutput) {
 	var op = ' ' + historyoutput + ' = ' + result ;
-	if (itemsArray.length > 5){
+	if (itemsArray.length > 2){
 		itemsArray.pop( );
 	}
 	itemsArray.unshift(op);
@@ -25,8 +25,8 @@ function AddLocalStorage(result, historyoutput) {
 	var textnode = document.createTextNode(op);
 	node.prepend(textnode);
 	data.prepend(node);
-	if (c > 5){
-		data.removeChild(data.childNodes[6]);
+	if (c > 2){
+		data.removeChild(data.childNodes[3]);
 	}
 	localStorage.setItem('items', JSON.stringify(itemsArray));
 	}
@@ -115,6 +115,10 @@ for(var i =0;i<number.length;i++){
       printOutput(output);
 	  
 		}
+		else if (output === NaN){
+			debugger;
+			return 0}
+	
 	});
 }
 var btn = document.getElementById('clear-history');
@@ -124,4 +128,25 @@ function clearLocal() {
         localStorage.clear();
 		location.reload();
 }
+const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+const currentTheme = localStorage.getItem('theme');
 
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+  
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+    }
+}
+
+function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    else {        document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+    }    
+}
+
+ toggleSwitch.addEventListener('change', switchTheme, false);
