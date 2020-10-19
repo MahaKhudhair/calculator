@@ -9,8 +9,18 @@
   </head>
 <body>
 <div class= "container">
+
+  <div class="theme-switch-wrapper">
+    <label class="theme-switch" for="checkbox">
+      <img src="on.png" id="toggleImage" alt="bulb on" width="50" height="50">   
+ <input type="checkbox" id="checkbox" />
+ <div class="slider round"></div>
+</label>
+ 
+</div>
+
   <div class="calculator-grid">
-    <div class="output" id="output-calc">
+    <div class="output" id="calc">
       <div data-previous-operand class="previous-operand" id="history-value"></div>
       <div data-current-operand class="current-operand" id="output-value"></div>
     </div>
@@ -33,15 +43,20 @@
     <button data-equals class="span-two operator" id="=">=</button>
   </div>
 
-  <div class="history">
+  <div class="historyli">
     <br>
     <h1 class="title-history">History</h1>
     <div id="list">
-        <ul id = "myList">
-         
-        </ul>
+       <ul id = "myList" >
+       </ul>
     </div>
+   
     <button class="btn-clear" id="clear-history">Clear History</button>
+    <nav>
+     
+    
+    </nav>  
+    <section>
 </div>
 <div>
 </div>
