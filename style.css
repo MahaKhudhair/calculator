@@ -1,3 +1,42 @@
+:root {
+  --primary-color: #302AE6;
+  --font-color: #193182;
+  --bg-color: #e4e8f5;
+  --heading-color: #292922;
+  --img-filter: grayscale(0%);
+  --history-color:  #fcfae1;
+  --title-history: black;
+  --button-color:  rgba(255, 255, 255, .75);
+  --output-color: #5776E0; 
+  --output-previous: rgba(255, 255, 255, .75);
+  --output-current: white;
+  --btn-clear-text: #494949;
+  --btn-clear: #FFF8d2;
+  --clear-hover: #f6b93b;
+  --clear-hover-color: #ffffff;
+  --clear-active: #999999;
+  --list-color: black;
+
+}
+[data-theme="dark"] {
+  --primary-color: #9A97F3;
+  --font-color: #e1e1ff;
+  --bg-color: #161625;
+  --heading-color: #818cab;
+  --img-filter: grayscale(100%);
+  --history-color: #c3c8d4;
+  --title-history: rgb(245, 237, 237);
+  --button-color: #9ba4b4;
+  --output-color: #153659; 
+  --btn-clear-text: #999999;
+  --btn-clear: #da5359;
+  --clear-hover: #862c30;
+  --clear-hover-color: #ffffff;
+  --clear-active: #310a0a;
+  --list-color: rgb(245, 237, 237);
+}
+
+
 *, *::before, *::after {
     box-sizing: border-box;
     font-family: Gotham Rounded, sans-serif;
@@ -7,21 +46,32 @@
   body {
     padding: 0;
     margin: 0;
-    background: #e4e8f5;
+    background: var(--bg-color);
   }
   .container {
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 5% 65% 30%;
     justify-content: center;
     align-content: center;
     min-height: 100vh;
   }
+ img {
+   filter: var(--img-filter);
+    }
+    label {
+      cursor: pointer;
+     
+  }
+  
+ #checkbox {
+   transition: 5s ease;
+ }
   .history {
     width: auto;
-    background-color: #fcfae1;
+    background-color: var(--primary-color);
     min-height: 100vh;
     padding: 2rem;
-    color: #193182;
+    color:  var(--history-color);
     font-weight: bolder;
   }
   .calculator-grid {
@@ -38,7 +88,7 @@
     font-size: 2rem;
     border: 1px solid white;
     outline: none;
-    background-color: rgba(255, 255, 255, .75);
+    background-color: var(--button-color);
   }
   
   .calculator-grid > button:hover {
@@ -51,7 +101,7 @@
   
   .output {
     grid-column: 1 / -1;
-    background-color: #5776E0;
+    background-color: var(--output-color);
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
@@ -71,13 +121,13 @@
     font-size: 2.5rem;
   }
   .title-history {
-      color: black;
+      color: var(--title-history);
   }
   .btn-clear {
     margin-top: 20px;
     color: #494949 ;
     text-decoration: none;
-    background: #FFF8d2;
+    background: var(--btn-clear);
     padding: 10px;
     border: 1px solid #423f10;
     display: inline-block;
@@ -85,14 +135,25 @@
     }
 
 .btn-clear:hover{
-    color: #ffffff ;
-    background: #f6b93b;
-    border-color: #f6b93b ;
+    color: var(--clear-hover-color);
+    background: var(--clear-hover);
+    /* border-color: #f6b93b ; */
     transition: all 0.4s ease 0s;
     }
     
 .btn-clear:active{
-    background-color:#999999;
-    }
+    background-color:var(--clear-active);
+}
+#list {
+  color: var(--list-color);
+}    
+
+.theme-switch input {
+  display:none;
+  transition:  0.3s ease;
+}
+.theme-switch {
+  transition:  3s ease;
+}
     
   
