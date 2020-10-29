@@ -1,6 +1,4 @@
-let itemsArray = localStorage.getItem("items")
-  ? JSON.parse(localStorage.getItem("items"))
-  : [];
+let itemsArray = localStorage.getItem("items")? JSON.parse(localStorage.getItem("items")): [];
 localStorage.setItem("items", JSON.stringify(itemsArray));
 const data = JSON.parse(localStorage.getItem("items"));
 
@@ -47,9 +45,7 @@ function printOutput(num) {
     if (num == "") {
       document.getElementById("output-value").innerText = num;
     } else {
-      document.getElementById("output-value").innerText = getFormattedNumber(
-        num
-      );
+      document.getElementById("output-value").innerText = getFormattedNumber(num);
     }
   }
 }
@@ -87,13 +83,17 @@ for (var i = 0; i < operator.length; i++) {
       if (output != "" || historyoutput != "") {
         output = output == "" ? output : reverseNumberFormat(output);
         historyoutput = historyoutput + output;
-
         if (this.id == "=") {
           document.getElementById("=").disabled = true;
           var result = eval(historyoutput);
           if (result == historyoutput) {
             return;
+          } else if (!isFinite(result)) {
+            alert("Can't divide by zero.");
+
+            return;
           }
+
           printOutput(result);
           printHistory("");
           AddLocalStorage(result, historyoutput);
@@ -107,13 +107,12 @@ for (var i = 0; i < operator.length; i++) {
     }
   });
 }
-
 var number = document.getElementsByClassName("number");
 for (var i = 0; i < number.length; i++) {
   number[i].addEventListener("click", function () {
     var output = reverseNumberFormat(getOutput());
     if (output != NaN) {
-      output = this.id;
+      output = output + this.id;
       printOutput(output);
     }
   });
@@ -123,7 +122,7 @@ btn.addEventListener("click", clearLocal);
 
 function clearLocal() {
   localStorage.clear();
-  //	window.reload();
+
   document.getElementById("myList").innerHTML = "";
 }
 const toggleSwitch = document.querySelector(
@@ -138,7 +137,6 @@ if (currentTheme) {
     toggleSwitch.checked = true;
   }
 }
-
 function switchTheme(e) {
   if (e.target.checked) {
     document.documentElement.setAttribute("data-theme", "dark");
@@ -148,6 +146,6 @@ function switchTheme(e) {
     localStorage.setItem("theme", "light");
   }
 }
-
 toggleSwitch.addEventListener("change", switchTheme, false);
+
 
