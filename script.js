@@ -90,7 +90,8 @@ for (var i = 0; i < operator.length; i++) {
             return;
           } else if (!isFinite(result)) {
             alert("Can't divide by zero.");
-
+            printHistory("");
+            printOutput("");
             return;
           }
 
